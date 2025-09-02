@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Lic. Laura Pimental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --azul-claro: #D7E9FC;
+            --morado-suave: #B39DDB;
+            --azul-principal: #4A90E2;
+            --morado-oscuro: #6A1B9A;
+            --blanco: #FFFFFF;
+            --gris: #f8f9fa;
+            --gris-oscuro: #495057;
+            --texto: #2d3748;
+            --sombra: rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--texto);
+            line-height: 1.6;
+            background: linear-gradient(135deg, var(--azul-claro) 0%, var(--blanco) 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background-color: var(--blanco);
+            border-radius: 10px;
+            box-shadow: 0 5px 25px var(--sombra);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, var(--morado-suave) 0%, var(--azul-principal) 100%);
+            color: var(--blanco);
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .login-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .login-form {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--morado-oscuro);
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--morado-suave);
+        }
+        
+        .input-with-icon input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .input-with-icon input:focus {
+            border-color: var(--azul-principal);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+        
+        .btn-login {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--azul-principal);
+            color: var(--blanco);
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .btn-login:hover {
+            background-color: var(--morado-oscuro);
+        }
+        
+        .login-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .login-links a {
+            color: var(--azul-principal);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .login-links a:hover {
+            color: var(--morado-oscuro);
+            text-decoration: underline;
+        }
+        
+        .messages {
+            margin-top: 20px;
+        }
+        
+        .alert {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .alert-error {
+            background-color: #ffebee;
+            color: #c62828;
+            border-left: 4px solid #c62828;
+        }
+        
+        .alert-success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border-left: 4px solid #2e7d32;
+        }
+        
+        .logo-login {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo-login img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--blanco);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                max-width: 100%;
+            }
+            
+            .login-form {
+                padding: 20px;
+            }
+            
+            .login-header {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo-login">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiM0QTkwRTIiLz48dGV4dCB4PSIxMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iY2VudHJhbCIgZmlsbD0iI0ZGRkZGRiI+TFAgPC90ZXh0Pjwvc3ZnPg==" alt="Lic. Laura Pimental">
+            </div>
+            <h1>Lic. Laura Pimental</h1>
+            <p>Accede a tu cuenta de administración</p>
+        </div>
+        
+        <div class="login-form">
+            <div id="messages" class="messages">
+                <!-- Los mensajes de error/éxito aparecerán aquí -->
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuario</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" name="username" placeholder="Ingresa tu usuario" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-login">Iniciar Sesión</button>
+            </form>
+            
+            <div class="login-links">
+                <a href="#">¿Olvidaste tu contraseña?</a>
+                <a href="/">Volver al sitio principal</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const messagesContainer = document.getElementById('messages');
+            
+            // Función para mostrar mensajes
+            function showMessage(message, type) {
+                messagesContainer.innerHTML = `
+                    <div class="alert alert-${type}">
+                        ${message}
+                    </div>
+                `;
+                
+                // Auto-ocultar mensajes después de 5 segundos
+                setTimeout(() => {
+                    messagesContainer.innerHTML = '';
+                }, 5000);
+            }
+            
+            // Manejar el envío del formulario
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                try {
+                    const response = await fetch('/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams({
+                            'username': username,
+                            'password': password
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.status === 200) {
+                        showMessage(data.message, 'success');
+                        // Redirigir después de un breve retraso
+                        setTimeout(() => {
+                            window.location.href = '/versiones'; // Cambia por la URL de tu panel de administración
+                        }, 1500);
+                    } else {
+                        showMessage(data.error, 'error');
+                    }
+                } catch (error) {
+                    showMessage('Error de conexión. Intenta nuevamente.', 'error');
+                    console.error('Error:', error);
+                }
+            });
+            
+            // Verificar si hay parámetros de error en la URL (por ejemplo, después de logout)
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('logout')) {
+                showMessage('Has cerrado sesión correctamente.', 'success');
+            }
+        });
+    </script>
+</body>
+</html>

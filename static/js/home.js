@@ -109,3 +109,50 @@ window.addEventListener('scroll', () => {
         header.style.boxShadow = 'none';
     }
 });
+
+// Animación de aparición de secciones al hacer scroll
+const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('section').forEach(section => {
+    observer.observe(section);
+});
+
+// Toggle para las cards de servicios
+document.querySelectorAll('.toggle-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const detalles = button.previousElementSibling;
+        const isOpen = detalles.classList.contains('abierto');
+        
+        // Cerrar todos los detalles abiertos primero
+        document.querySelectorAll('.servicio-detalles.abierto').forEach(openDetalle => {
+            if (openDetalle !== detalles) {
+                openDetalle.classList.remove('abierto');
+                openDetalle.previousElementSibling.classList.remove('abierto');
+            }
+        });
+        
+        // Alternar el estado actual
+        detalles.classList.toggle('abierto');
+        button.classList.toggle('aberto');
+        
+        // Cambiar el texto del botón
+        button.textContent = detalles.classList.contains('abierto') ? 'Menos información' : 'Más información';
+    });
+});
+
+// Hacer visible la sección de inicio inmediatamente
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('inicio').classList.add('visible');
+});
