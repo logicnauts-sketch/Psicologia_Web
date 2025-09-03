@@ -161,7 +161,7 @@ header {
 
 /* Sección de inicio */
 .inicio {
-    background: linear-gradient(135deg, var(--azul-claro) 0%, var(--blanco) 100%);
+    background: linear-gradient(135deg, var(--morado-suave) 0%, var(--blanco) 100%);
     color: var(--morado-oscuro);
     text-align: center;
     padding: 150px 0 100px;

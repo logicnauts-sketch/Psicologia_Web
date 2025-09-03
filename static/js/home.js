@@ -1,4 +1,3 @@
-
 // Navegación responsive
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
@@ -36,7 +35,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 const formulario = document.getElementById('formulario-cita');
 const mensajeExito = document.getElementById('mensaje-exito');
 
-formulario.addEventListener('submit', function(e) {
+formulario.addEventListener('submit', async function(e) {
     e.preventDefault();
     
     let isValid = true;
@@ -86,15 +85,48 @@ formulario.addEventListener('submit', function(e) {
         errorMotivo.style.display = 'none';
     }
     
-    // Si el formulario es válido, mostrar mensaje de éxito
+    // Si el formulario es válido, enviar al servidor
     if (isValid) {
-        mensajeExito.style.display = 'block';
-        formulario.reset();
+        // Mostrar estado de carga
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Enviando...';
+        submitBtn.disabled = true;
         
-        // Ocultar mensaje después de 5 segundos
-        setTimeout(() => {
-            mensajeExito.style.display = 'none';
-        }, 5000);
+        try {
+            // Crear FormData con los datos del formulario
+            const formData = new FormData(this);
+            
+            // Enviar datos al servidor
+            const response = await fetch('/solicitar-cita', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Mostrar mensaje de éxito específico
+                mensajeExito.innerHTML = data.message;
+                mensajeExito.style.display = 'block';
+                formulario.reset();
+                
+                // Ocultar mensaje después de 8 segundos
+                setTimeout(() => {
+                    mensajeExito.style.display = 'none';
+                }, 8000);
+            } else {
+                // Mostrar error del servidor
+                alert('Error: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Error al enviar el formulario:', error);
+            alert('Error al enviar el formulario. Por favor, intenta de nuevo.');
+        } finally {
+            // Restaurar estado del botón
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
     }
 });
 
